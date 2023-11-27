@@ -29,6 +29,7 @@ mostly to Arduino Nanos. When considering that we are also in need of an acceler
 we can see that the [Arduino Nano 33 BLE Sense Rev2](https://docs.arduino.cc/hardware/nano-33-ble-sense-rev2) is a good choice. Additionally,
 while we initially did not have a prefrence of Low Energy over Standard Bluetooth, since this microcontroller uses BLE, is low power, and works on a 3.3v logic,
 it is perfect to eventually implement on-glove predictions and power, without the need of a computer.
+
 ![advanced pinout](_assets/advanced_pinout.png)
 
 ## Flex Sensors
