@@ -1,5 +1,6 @@
 import os
 
+
 def create_files(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -8,6 +9,7 @@ def create_files(directory):
         filename = os.path.join(directory, f"{chr(letter)}.txt")
         with open(filename, 'w') as file:
             pass
+
 
 # Usage example
 directory_path = '/Users/so/Documents/projects/asl-detection/files'
