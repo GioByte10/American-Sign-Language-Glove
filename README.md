@@ -64,8 +64,17 @@ short fingers[6];
   fingers[5] = analogRead(A7);
 ```
 
-## Commands
+## Accelerometer
+<img align="left" width="150" height="150" src="_assets/accelerometer.png">
 
+The interesting thing about the accelerometer is that it does not measure coordinate acceleration but rather proper [acceleration](https://en.wikipedia.org/wiki/Proper_acceleration)
+This means that, even when the accelerometer is in uniform motion (`a` = 0) it still measures the [standard gravitational acceleration](https://en.wikipedia.org/wiki/Standard_gravity)
+Knowing this, we can measure the fraction of earth's gravitational acceleration that projects onto a given axis ([aka dot product](https://en.wikipedia.org/wiki/Dot_product))
+Furthermore, if we take the inverse sine `sin-¹(a)` we can get the angle relative to the surface of earth.
+
+...<br><br><br>
+
+## KNN
 
 ## Bill of Materials
 + Glove
@@ -76,3 +85,13 @@ short fingers[6];
 + Breadboard/protoboard
 + Jumpers
 + Computer (KNN, power)
+
+### American Sing Language Glove (Spanish)
+
+
+### American Sing Language Glove (Japanese)
+
+
+### American Sing Language Glove (Chinese)
+
+ 
