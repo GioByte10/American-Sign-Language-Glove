@@ -68,14 +68,63 @@ short fingers[6];
 ## Accelerometer
 <img align="left" width="150" height="150" src="_assets/accelerometer.png">
 
-The interesting thing about the accelerometer is that it does not measure coordinate acceleration but rather proper [acceleration](https://en.wikipedia.org/wiki/Proper_acceleration)
-This means that, even when the accelerometer is in uniform motion (`a` = 0) it still measures the [standard gravitational acceleration](https://en.wikipedia.org/wiki/Standard_gravity)
-Knowing this, we can measure the fraction of earth's gravitational acceleration that projects onto a given axis ([aka dot product](https://en.wikipedia.org/wiki/Dot_product))
-Furthermore, if we take the inverse sine `sin-¹(a)` we can get the angle relative to the surface of earth.
+The interesting thing about the accelerometer is that it does not measure coordinate acceleration but rather proper [acceleration](https://en.wikipedia.org/wiki/Proper_acceleration).
+This means that, even when the accelerometer is in uniform motion (`a` = 0) it still measures the [standard gravitational acceleration](https://en.wikipedia.org/wiki/Standard_gravity).
+Knowing this, we can measure the fraction of earth's gravitational acceleration that projects onto a given axis (aka [dot product](https://en.wikipedia.org/wiki/Dot_product)).
+Furthermore, if we take the inverse cosine `cos-¹(a)` we can get the angle `θ` relative to the gravitational acceleration. In our case, we simply set a constant `PARALEL_AXIS_THRESHOLD_G = 0.8`, 
+which is the minimum value of the projection onto that axis. This would be the equivalent of:
 
-...<br><br><br>
+$$\theta<\cos^{-1}\left(0.8\right)$$
+
+$$\theta<36.869...°$$
+
+What we can do is, for instance, since `l`, `g`, and `q` are pretty much the same (to the flex sensors), instead of training the [KNN](https://github.com/GioByte10/American-Sign-Language-Glove/tree/main#knn) on those 3 different letters, we can have it train in only one of them, let's say `l`.
+Now, when we get a prediction saying the current character is `l` we also check the values of the `x` and `z` axis to see if it is actually a `g` or a `q`.
+```python
+match prediction:
+    case 'l':
+        if abs(arr[X_AXIS_G]) > PARALEL_AXIS_THRESHOLD_G:
+            prediction = 'g'
+        elif abs(arr[Z_AXIS_G]) > PARALEL_AXIS_THRESHOLD_G:
+            prediction = 'q'
+
+    case 'k':
+        if not abs(arr[Y_AXIS_G]) > PARALEL_AXIS_THRESHOLD_G:
+            prediction = 'p'
+
+    case 'u' | 'v':
+        if abs(arr[X_AXIS_G]) > PARALEL_AXIS_THRESHOLD_G:
+            prediction = 'h'
+```
+
+We can do something similar for the letters that are the same but  in motion, for instance, `d` and `z`. In this case we measure that the standard gavitational acceleration drops when we move the hand downwards. 
+Here `LINEAR_THRESHOLD_G = 0.5`.
+
+```python
+if np.max(linear_acc) > LINEAR_THRESHOLD_G:
+    match prediction:
+        case 'd':
+            prediction = 'z'
+
+        case 'i':
+            prediction = 'j'
+```
+## Commands
+While showing a letter on the LCD/App of the current prediction is already great, we also want to be able to spell and form words/sentences. 
+So far our prediction is based on the instantaneous values of the flex sensors and accelerometer data. We need a way to tell Python when to _poll_ a character. 
+That is, we need a way to know when to append a letter to a sentence. We might make mistakes when trying to spell too, so being able to delete single characters or an entire sentence would be useful as well. 
+Spaces would also be neat so that we can seprate words. Fortunately, the Arduino Nano 33 BLE Sense Rev2 is also equipped with a gyroscope. This sensor measures the degrees per second (DPS) of a given axis
+
+$$\frac{d}{dt}\left(\alpha\right)$$
+
+What we can do is use this data to perform these _commands_. We chose angular motion in:<br>
+`x` axis to add `space`<br>
+`y` axis to `append` letters<br>
+`z` axis to `delete` a character. 3 deletions in a row delete the entire sentence<br>
 
 ## KNN
+
+## communicate.py
 
 ## Bill of Materials
 + Glove
