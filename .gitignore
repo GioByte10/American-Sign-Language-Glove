@@ -4,5 +4,9 @@ data.json
 .DS_Store
 **/.DS_Store
 
+
+.idea
+.idea/
+/.idea/
 /.idea
 /venv
