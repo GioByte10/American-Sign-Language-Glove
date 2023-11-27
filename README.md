@@ -35,7 +35,7 @@ it is perfect to eventually implement on-glove predictions and power, without th
 ## Flex Sensors
 <img align="right" src="_assets/schematic.png">
 The easiest way to get data from the flex sensors is to map the resistance to a number by using `analogRead`. This function maps a [0, 3.3] voltage to a [0, 1023] value.
-While Arduino cannot directly measure resistance, we can read the `v_out` from a voltage divider made up of a flex sensor and an extra resistance. The function we want to maximaze is:
+While Arduino cannot directly measure resistance, we can read the `v_out` from a voltage divider made up of a flex sensor and an extra resistance. The function we want to optimize is:
 
 $$f\left(R\right)=\left(\frac{R}{R_{Flex-}+R}-\frac{R}{R_{Flex+}+R}\right)1024$$
 
@@ -66,7 +66,7 @@ short fingers[6];
 ```
 
 ## Accelerometer
-<img align="left" width="150" height="150" src="_assets/accelerometer.png">
+<img align="left" width="170" height="170" src="_assets/accelerometer.png">
 
 The interesting thing about the accelerometer is that it does not measure coordinate acceleration but rather proper [acceleration](https://en.wikipedia.org/wiki/Proper_acceleration).
 This means that, even when the accelerometer is in uniform motion (`a` = 0) it still measures the [standard gravitational acceleration](https://en.wikipedia.org/wiki/Standard_gravity).
