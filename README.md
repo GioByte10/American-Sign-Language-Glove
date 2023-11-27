@@ -142,15 +142,16 @@ Inside our main `while` loop we read the Arduino Serial data every 100 ms where 
 sendMsg = prediction + ',' + command
 ```
 
-## Arduino_ASL.ino
-Now that we talked about what runs on the computer, let's talk about the embedded side.
-
 From here four different things can happen:<br>
 if `command` is an empty character, the Arduino shows the instantaneous prediction<br>
 if `command` is the same as `prediction`, the letter is appended to a sentence<br>
 if `command` is `*`, we delete a character<br>
 if `command` is `!`, we delete the sentence<br>
 if `command` is ` `, we add a space<br>
+
+## Arduino_ASL.ino
+Now that we talked about what runs on the computer, let's talk about the embedded side.
+
 
 ## KNN
 
