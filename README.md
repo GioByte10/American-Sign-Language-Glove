@@ -64,7 +64,8 @@ short fingers[6];
   fingers[5] = analogRead(A7);
 ```
 
-## Commandsx
+## Commands
+
 
 ## Bill of Materials
 + Glove
