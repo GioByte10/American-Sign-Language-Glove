@@ -98,7 +98,7 @@ match prediction:
 ```
 
 We can do something similar for the letters that are the same but  in motion, for instance, `d` and `z`. In this case we measure that the standard gavitational acceleration drops when we move the hand downwards. 
-Here `LINEAR_THRESHOLD_G = 0.5`.
+Here `LINEAR_THRESHOLD_G = -0.5`.
 
 ```python
 if np.max(linear_acc) > LINEAR_THRESHOLD_G:
@@ -120,11 +120,37 @@ $$\frac{d}{dt}\left(\alpha\right)$$
 What we can do is use this data to perform these _commands_. We chose angular motion in:<br>
 `x` axis to add `space`<br>
 `y` axis to `append` letters<br>
-`z` axis to `delete` a character. 3 deletions in a row delete the entire sentence<br>
+`z` axis to `delete` a character. Three deletions in a row delete the entire sentence<br>
+
+// add gifs
+
+We can select appropiate values by inspection:
+```python
+ADD_THRESHOLD_DPS = 220
+DELETE_THRESHOLD_DPS = 300
+SPACE_THRESHOLD_DPS = 220
+```
+
+## communicate.py
+We have been talking about how we can use the values from the flex sensors, accelerometer, and gyroscope, but we are still yet to talk about how we will communicate between the Arduino and the KNN. 
+[communicate.py](https://github.com/GioByte10/American-Sign-Language-Glove/blob/main/KNN/production/communicate.py) gets this job done. The Arduino communicates to the computer via Serial 
+sending a comma separated string of the flex sensors, accelerometer, and gyroscope. We use [pyserial](https://pythonhosted.org/pyserial/) for Python to read the data. We load the Arduino `Port` and KNN model `PATH` from a `data.json` file.
+
+Inside our main `while` loop we read the Arduino Serial data every 100 ms where we decode it, separate the values, and put into an list. Once in this list, we convert it into an array and average the last 15 values of the flex sensors to send to the KNN model. After we get a prediction, a message is sent to the Arduino to represent the command/action we want it to take. The message has the following structure:
+```python
+sendMsg = prediction + ',' + command
+```
+
+From here four different things can happen:<br>
+if `command` is an empty character, the Arduino shows the instantaneous prediction<br>
+if `command` is the same as `prediction`, the letter is appended to a sentence<br>
+if `command` is `*`, we delete a character<br>
+if `command` is `!`, we delete the sentence<br>
+if `command` is ` `, we add a space<br>
 
 ## KNN
 
-## communicate.py
+
 
 ## Bill of Materials
 + Glove
@@ -136,12 +162,15 @@ What we can do is use this data to perform these _commands_. We chose angular mo
 + Jumpers
 + Computer (KNN, power)
 
-### American Sing Language Glove (Spanish)
+## Acknowledgements
+to-do
+
+# American Sing Language Glove (Spanish)
 
 
-### American Sing Language Glove (Japanese)
+# American Sing Language Glove (Japanese)
 
 
-### American Sing Language Glove (Chinese)
+# American Sing Language Glove (Chinese)
 
  
