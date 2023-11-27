@@ -5,7 +5,7 @@ The ASL Glove is capable of translating physical hand gestures representing the 
 Arduino Nano 33 BLE Sense Rev2 to get data from flex sensors (resistors), an accelerometer, and a gyroscope. This data
 is sent through Serial to a computer and fed into a Python KNN algorithm to make a prediction for the current character. Finally, we show the
 text through an on-glove LCD screen and a custom Bluetooth Low Energy App. This
-repository aims to give an in-depth analysis of our design choices, how the glove works, and how you can make your own.
+repository aims to give a more in-depth analysis of our design choices, how the glove works, and how you can make your own.
 ![](_assets/flow_.png?raw=true)
 
 ## Alphabet
@@ -141,6 +141,9 @@ Inside our main `while` loop we read the Arduino Serial data every 100 ms where 
 ```python
 sendMsg = prediction + ',' + command
 ```
+
+## Arduino_ASL.ino
+Now that we talked about what runs on the computer, let's talk about the embedded side.
 
 From here four different things can happen:<br>
 if `command` is an empty character, the Arduino shows the instantaneous prediction<br>
