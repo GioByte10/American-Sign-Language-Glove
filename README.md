@@ -151,43 +151,12 @@ if `command` is ` `, we add a space<br>
 
 ## Arduino_ASL.ino
 Now that we talked about what runs on the computer, let's talk about the embedded side. [Arduino_ASL.ino](blank) is what runs on the board. 
-We can see how we are setting up our main pheripherals, sensors, and communication protocols in `setup`. These are: (ab) the built-in LED, (b) `Serial`, (c) [IMU](https://en.wikipedia.org/wiki/Inertial_measurement_unit), (accelerometer and gyroscope), (d) `lcd`, and (e) `BLE`.
+We can see how we are setting up our main pheripherals, sensors, and communication protocols in `setup`. These are: (a) the built-in LED, (b) `Serial`, 
+(c) [IMU](https://en.wikipedia.org/wiki/Inertial_measurement_unit), (accelerometer and gyroscope), (d) `lcd`, and (e) `BLE`. 
 
-```C++
-void setup() {
 
-  pinMode(LED_BUILTIN, OUTPUT);
 
-  Serial.begin(115200);
-  Serial.println("Started");
-
-  if(!IMU.begin()){
-    Serial.println("IMU failed to initialize");
-    while(1);
-  }
-
-  Serial.println("IMU ON");
-
-  lcd.init();
-  lcd.backlight();
-  lcd.home();
-  lcd.print("Waiting...");
-
-  BLE.begin();
-  BLE.setDeviceName("Nano_33_BLE");
-  BLE.setLocalName("Nano_33_BLE");
-
-  BLE.setAdvertisedService(messageService);
-  messageService.addCharacteristic(messageCharacteristic);
-
-  BLE.addService(messageService);
-  messageCharacteristic.writeValue(message);
-
-  BLE.advertise();
-  delay(6000);
-}
-```
-
+## Bluetooth Low Energy
 
 ## KNN
 
