@@ -151,7 +151,7 @@ if `command` is ` `, we add a space<br>
 
 
 ## Bluetooth Low Energy
-![asl_alphabet](_assets/ble_model.png?raw=true)
+![asl_alphabet](_assets/ble_model_v.png?raw=true)
 
 [BLE](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy) data is organized and shared through services and characteristics. As the [ArduinoBLE Library](https://www.arduino.cc/reference/en/libraries/arduinoble/) 
 expalins, BLE works kind of like a bulletin board. A peripheral device postes all services, which are a collection of characteristics, while the characteristic is the actual data value we want to share. 
