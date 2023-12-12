@@ -149,14 +149,28 @@ if `command` is `*`, we delete a character<br>
 if `command` is `!`, we delete the sentence<br>
 if `command` is ` `, we add a space<br>
 
+
+## Bluetooth Low Energy
+<img align="right"  width="170" height="170" src="_assets/ble_model.png">
+
+[BLE](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy) data is organized and shared through services and characteristics. As the [ArduinoBLE Library](https://www.arduino.cc/reference/en/libraries/arduinoble/) 
+expalins, BLE works kind of like a bulletin board. A peripheral device postes all services, which are a collection of characteristics, while the characteristic is the actual data value we want to share. 
+In our case, the peripheral device would be the board, while the central device is the phone with the Android App. We have a single service: `messageService` 
+and two characteristics: `predictionCharacteristic` and `sentenceCharacteristic` to send the instantaneous prediction and the sentence, respectively.
+
+```C++
+BLEService messageService(BLE_UUID_MESSAGE_SERVICE);
+BLEStringCharacteristic predictionCharacteristic(BLE_UUID_PREDICTION_CHARACTERISTIC, BLENotify, 1);
+BLEStringCharacteristic sentenceCharacteristic(BLE_UUID_SENTENCE_CHARACTERISTIC, BLENotify, COLS);
+```
+We have added the `BLENotify` property to both charactersitics, which means that, once our Android app is _subscribed_ to those characteristics, it will automatically notify the app when the board modifies their value.
+
+
 ## Arduino_ASL.ino
 Now that we talked about what runs on the computer, let's talk about the embedded side. [Arduino_ASL.ino](blank) is what runs on the board. 
 We can see how we are setting up our main pheripherals, sensors, and communication protocols in `setup`. These are: (a) the built-in LED, (b) `Serial`, 
-(c) [IMU](https://en.wikipedia.org/wiki/Inertial_measurement_unit), (accelerometer and gyroscope), (d) `lcd`, and (e) `BLE`. 
+(c) [IMU](https://en.wikipedia.org/wiki/Inertial_measurement_unit), (accelerometer and gyroscope), (d) `lcd`, and (e) `BLE`.
 
-
-
-## Bluetooth Low Energy
 
 ## KNN
 
