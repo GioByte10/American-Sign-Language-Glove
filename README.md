@@ -116,11 +116,11 @@ So far our prediction is based on the instantaneous values of the flex sensors a
 That is, we need a way to know when to append a letter to a sentence. We might make mistakes when trying to spell too, so being able to delete single characters or an entire sentence would be useful as well. 
 Spaces would also be neat so that we can seprate words. Fortunately, the Arduino Nano 33 BLE Sense Rev2 is also equipped with a gyroscope. This sensor measures the degrees per second (DPS) `ω` of a given axis:
 
-$$ω=\frac{d}{dt}\left(\alpha\right)$$
+$$ω=\frac{d}{dt}\left(\theta\right)$$
 
 What we can do is use this data to perform these _commands_. We chose angular motion in:<br>
-`x` axis to add a `space`<br>
-`y` axis to `append` letters<br>
+`x` axis to `append` letters<br>
+`y` axis to `add` a space<br>
 `z` axis to `delete` a character. Three deletions in a row delete the entire sentence<br>
 
 // add gifs
@@ -172,8 +172,10 @@ Now that we talked about what runs on the computer, let's talk about the embedde
 We can see how we are setting up our main pheripherals, sensors, and communication protocols in `setup`. These are: (a) the built-in LED, (b) Serial, 
 (c) [IMU](https://en.wikipedia.org/wiki/Inertial_measurement_unit), (accelerometer and gyroscope), (d) lcd, and (e) BLE.
 
+As we loop through the code, the Arduino constantly sends data through the Serial port to the Python script. Specifically, we send comma separated values representing the `analogRead` values of the flex sensors, and the x, y, z values of the accelerometer and gyroscope. Lastly, we handle the prediction sent to the Arduino by the Python script, and the commands, if any. After this we update the LCD accordingly to reflect the current sentence.
 
 ## KNN
+The k-nearest neighbors ([KNN](https://www.ibm.com/think/topics/knn)) algorithm is a non-parametric, supervised learning classifier, which uses proximity to make classifications or predictions about the grouping of an individual data point. In our case, it uses the proximity of a current reading of the set of 6 flex sensors we have, and compares it to the data we have collected for each letter, in a 6Dimensional space.
 
 
 
