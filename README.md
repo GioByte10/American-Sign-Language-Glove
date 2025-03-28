@@ -190,14 +190,8 @@ The k-nearest neighbors ([KNN](https://www.ibm.com/think/topics/knn)) algorithm 
 + Computer (KNN, power)
 
 ## Acknowledgements
-Description of what each of us did  + what language we translated
-
-# American Sing Language Glove (Spanish)
-
-
-# American Sing Language Glove (Japanese)
-
-
-# American Sing Language Glove (Chinese)
-
+Giovanni Bernal Ramirez (embedded, App)
+So Hirota (KNN)
+Dehao Lin (sewing, presentation)
+Li-Pin Chang (App, presentation)
  
