@@ -1,4 +1,4 @@
-//main image here
+![glove](_assets/glove_.jpg?raw=true)
 # American Sign Language Glove
 
 The ASL Glove is capable of translating physical hand gestures representing the ASL alphabet into text. We use the
