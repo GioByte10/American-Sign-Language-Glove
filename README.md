@@ -11,6 +11,9 @@ text through an on-glove LCD screen and a custom Bluetooth Low Energy App. This
 repository aims to give a more in-depth analysis of our design choices, how the glove works, and how you can make your own.
 ![](_assets/flow_.png?raw=true)
 
+## Demonstration
+[![Watch the video](https://img.youtube.com/vi/QYRo0kN33l4/maxresdefault.jpg)](https://youtube.com/shorts/QYRo0kN33l4)
+
 ## Alphabet
 ![asl_alphabet](_assets/asl_alphabet.jpg?raw=true)
 As we can see, most of the characters in the ASL alphabet can be predicted by the individual multisets (5)
