@@ -11,7 +11,7 @@ text through an on-glove LCD screen and a custom Bluetooth Low Energy App. This
 repository aims to give a more in-depth analysis of our design choices, how the glove works, and how you can make your own.
 ![](_assets/flow_.png?raw=true)
 
-## Demonstration
+## Demonstration Video
 [![Watch the video](https://img.youtube.com/vi/QYRo0kN33l4/maxresdefault.jpg)](https://youtube.com/shorts/QYRo0kN33l4)
 
 ## Alphabet
@@ -129,8 +129,6 @@ What we can do is use this data to perform these _commands_. We chose angular mo
 `y` axis to `add` a space<br>
 `z` axis to `delete` a character. Three deletions in a row delete the entire sentence<br>
 
-// add gifs
-
 We can select appropiate values by inspection:
 ```python
 ADD_THRESHOLD_DPS = 220
@@ -196,8 +194,8 @@ The k-nearest neighbors ([KNN](https://www.ibm.com/think/topics/knn)) algorithm 
 + Computer (KNN, power)
 
 ## Acknowledgements
-Giovanni Bernal Ramirez (embedded, App)
-So Hirota (KNN)
-Dehao Lin (sewing, presentation)
-Li-Pin Chang (App, presentation)
+Giovanni Bernal Ramirez (embedded, App)<br>
+So Hirota (KNN)<br>
+Dehao Lin (sewing, presentation)<br>
+Li-Pin Chang (App, presentation)<br>
  
