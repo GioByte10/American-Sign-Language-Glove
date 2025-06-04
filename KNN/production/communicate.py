@@ -99,9 +99,10 @@ while True:
     # if empty string is received or if the resulting array is malformed
     arr = receiveMsg.decode()
     arr = arr.strip().split(',')
-    print(arr)
+    #print(arr)
 
-    # the array is formatted like: [back_of_hand, fingers, X_AXIS_DPS, Y_AXIS_DPS, Z_AXIS_DPS, X_AXIS_G, Y_AXIS_G, Z_AXIS_G]
+    # the array is formatted: [back_of_hand, fingers, X_AXIS_DPS, Y_AXIS_DPS, Z_AXIS_DPS, X_AXIS_G, Y_AXIS_G, Z_AXIS_G]
+
     if len(arr) == 12:
         arr = np.array(arr).astype(float)
         positions.append(arr)
@@ -202,7 +203,8 @@ while True:
             ard.write(sendMsg)
 
     else:
-        print('got nothing')
+        pass
+        # print('got nothing')
 
     if (dt.now() - t_previous).total_seconds() > DELETE_TIMEOUT_S:
         delete_counter = 0
