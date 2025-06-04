@@ -48,7 +48,7 @@ Y_AXIS_G = 10
 Z_AXIS_G = 11
 
 """
-this treshold is the fraction of earth's gravitational acceleration that projects onto the given axis
+this treshold is the fraction of earth's gravitational acceleration that projects onto the given axis a.k.a the dot product of the two vectors
 if the Arduino's relative axis is perfectly parallel to earth's gravitational acceleration (pointing towards the center of the earth), 
     then the value will be 1
     
@@ -56,8 +56,6 @@ if the Arduino's relative axis is perfectly perpendicular to earth's gravitation
  then the value will be 0
 """
 PARALEL_AXIS_THRESHOLD_G = 0.8
-
-
 t_previous = dt.now()
 
 
@@ -184,13 +182,13 @@ while True:
                     elif abs(arr[Z_AXIS_G]) > PARALEL_AXIS_THRESHOLD_G:
                         prediction = 'q'
 
-                case 'k':
-                    if not abs(arr[Y_AXIS_G]) > PARALEL_AXIS_THRESHOLD_G:
-                        prediction = 'p'
-
-                case 'u' | 'v':
+                case 'u' | 'v' | 'k' | 'r':
                     if abs(arr[X_AXIS_G]) > PARALEL_AXIS_THRESHOLD_G:
                         prediction = 'h'
+
+                case 'k' | 'r':
+                    if not abs(arr[Y_AXIS_G]) > PARALEL_AXIS_THRESHOLD_G:
+                        prediction = 'p'
 
             if len(prev_preds) <= 10:
                 prev_preds.append(prediction)
