@@ -172,7 +172,7 @@ We have added the `BLENotify` property to both charactersitics, which means that
 
 
 ## Arduino_ASL.ino
-Now that we talked about what runs on the computer, let's talk about the embedded side. [Arduino_ASL.ino](blank) is what runs on the board. 
+Now that we talked about what runs on the computer, let's talk about the embedded side. [Arduino_ASL.ino](https://github.com/GioByte10/American-Sign-Language-Glove/blob/main/Arduino_ASL/Arduino_ASL.ino) is what runs on the board. 
 We can see how we are setting up our main pheripherals, sensors, and communication protocols in `setup`. These are: (a) the built-in LED, (b) Serial, 
 (c) [IMU](https://en.wikipedia.org/wiki/Inertial_measurement_unit), (accelerometer and gyroscope), (d) lcd, and (e) BLE.
 
