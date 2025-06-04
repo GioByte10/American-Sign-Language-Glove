@@ -24,7 +24,7 @@ It is important to note that it is possible for two different multisets of a fin
 the same "flexness" value ([surjective](https://en.wikipedia.org/wiki/Surjective_function)), but we assume this to be: (a) unlikely and (b) negligible when taking into account the rest of
 the other fingers' measurements. For measuring this "flexness," we use [Adafruit's short flex sensors](https://www.adafruit.com/product/1070).
 
-Sadly, flex sensors alone will not be enough to accurately predict all charracters. Some letters share the same multiset of
+Sadly, flex sensors alone will not be enough to accurately predict all characters. Some letters share the same multiset of
 relative positions but the fingers are simply: (a) oriented differently, (b) in motion, or (c) spaced differently.
 We can fix (a) and (b) by using an accelerometer, this would allow us to effectively have the equivalent of a position multiset with absolute orientation,
 but there's not much we can do about (c).
@@ -104,7 +104,7 @@ match prediction:
             prediction = 'h'
 ```
 
-We can do something similar for the letters that are the same but  in motion, for instance, `d` and `z`. In this case we measure that the standard gavitational acceleration drops when we move the hand downwards. 
+We can do something similar for the letters that are the same but  in motion, for instance, `d` and `z`. In this case we measure that the standard gravitational acceleration drops when we move the hand downwards. 
 Here `LINEAR_THRESHOLD_G = -0.5`.
 
 ```python
@@ -120,7 +120,7 @@ if np.max(linear_acc) > LINEAR_THRESHOLD_G:
 While showing a letter on the LCD/App of the current prediction is already great, we also want to be able to spell and form words/sentences. 
 So far our prediction is based on the instantaneous values of the flex sensors and accelerometer data. We need a way to tell Python when to _poll_ a character. 
 That is, we need a way to know when to append a letter to a sentence. We might make mistakes when trying to spell too, so being able to delete single characters or an entire sentence would be useful as well. 
-Spaces would also be neat so that we can seprate words. Fortunately, the Arduino Nano 33 BLE Sense Rev2 is also equipped with a gyroscope. This sensor measures the degrees per second (DPS) `ω` of a given axis:
+Spaces would also be neat so that we can separate words. Fortunately, the Arduino Nano 33 BLE Sense Rev2 is also equipped with a gyroscope. This sensor measures the degrees per second (DPS) `ω` of a given axis:
 
 $$ω=\frac{d}{dt}\left(\theta\right)$$
 
@@ -129,7 +129,7 @@ What we can do is use this data to perform these _commands_. We chose angular mo
 `y` axis to `add` a space<br>
 `z` axis to `delete` a character. Three deletions in a row delete the entire sentence<br>
 
-We can select appropiate values by inspection:
+We can select appropriate values by inspection:
 ```python
 ADD_THRESHOLD_DPS = 220
 DELETE_THRESHOLD_DPS = 300
@@ -159,7 +159,7 @@ if `command` is ` `, we add a space<br>
 <img align="left"  width="300" height="300" src="_assets/ble_model_v.png">
 
 [BLE](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy) data is organized and shared through services and characteristics. As the [ArduinoBLE Library](https://www.arduino.cc/reference/en/libraries/arduinoble/) 
-expalins, BLE works kind of like a bulletin board. A peripheral device postes all services, which are a collection of characteristics, while the characteristic is the actual data value we want to share. 
+explains, BLE works kind of like a bulletin board. A peripheral device postes all services, which are a collection of characteristics, while the characteristic is the actual data value we want to share. 
 In our case, the peripheral device would be the board, while the central device is the phone with the Android App. We have a single service: `messageService` 
 and two characteristics: `predictionCharacteristic` and `sentenceCharacteristic` to send the instantaneous prediction and the sentence, respectively.
 
@@ -168,12 +168,12 @@ BLEService messageService(BLE_UUID_MESSAGE_SERVICE);
 BLEStringCharacteristic predictionCharacteristic(BLE_UUID_PREDICTION_CHARACTERISTIC, BLENotify, 1);
 BLEStringCharacteristic sentenceCharacteristic(BLE_UUID_SENTENCE_CHARACTERISTIC, BLENotify, COLS);
 ```
-We have added the `BLENotify` property to both charactersitics, which means that, once our Android app is _subscribed_ to those characteristics, it will automatically notify the app when the board modifies their value.
+We have added the `BLENotify` property to both characteristics, which means that, once our Android app is _subscribed_ to those characteristics, it will automatically notify the app when the board modifies their value.
 
 
 ## Arduino_ASL.ino
 Now that we talked about what runs on the computer, let's talk about the embedded side. [Arduino_ASL.ino](https://github.com/GioByte10/American-Sign-Language-Glove/blob/main/Arduino_ASL/Arduino_ASL.ino) is what runs on the board. 
-We can see how we are setting up our main pheripherals, sensors, and communication protocols in `setup`. These are: (a) the built-in LED, (b) Serial, 
+We can see how we are setting up our main peripherals, sensors, and communication protocols in `setup`. These are: (a) the built-in LED, (b) Serial, 
 (c) [IMU](https://en.wikipedia.org/wiki/Inertial_measurement_unit), (accelerometer and gyroscope), (d) lcd, and (e) BLE.
 
 As we loop through the code, the Arduino constantly sends data through the Serial port to the Python script. Specifically, we send comma separated values representing the `analogRead` values of the flex sensors, and the x, y, z values of the accelerometer and gyroscope. Lastly, we handle the prediction sent to the Arduino by the Python script, and the commands, if any. After this we update the LCD accordingly to reflect the current sentence.
